@@ -1,0 +1,287 @@
+{
+  "language": "English",
+  "app": {
+    "name": "Cli2Gui",
+    "description": "A tool to convert command-line tools into GUI applications, built with Electron, Vue and TypeScript.",
+    "trayMenu": {
+      "displayMainInterface": "Display Main Interface",
+      "quit": "Quit"
+    }
+  },
+  "list": {
+    "header": {
+      "newCommand": "New Command",
+      "dropExe": "or drop executable file here",
+      "gridView": "Grid View",
+      "listView": "List View"
+    },
+    "appMenu": {
+      "import": "Import",
+      "export": "Export",
+      "clear": "Clear",
+      "github": "GitHub",
+      "about": "About",
+      "quit": "Quit",
+      "confirmClear": "Are you sure to clear all commands?",
+      "irreversible": "This operation is irreversible, it is recommended to export a backup first.",
+      "cancel": "Cancel",
+      "version": "Version"
+    },
+    "exportBar": {
+      "selectAll": "Select All",
+      "export": "Export",
+      "cancel": "Cancel"
+    },
+    "noData": "No Data",
+    "itemMenu": {
+      "edit": "Edit",
+      "export": "Export",
+      "remove": "Remove",
+      "confirmRemove": "Are you sure to remove this command?",
+      "cancel": "Cancel",
+      "createDesktopShortcut": "Create Desktop Shortcut",
+      "desktopShortcutDescription": "Shortcut to run command in Cli2Gui",
+      "warning": "Warning",
+      "commandRemoved": "The command has been removed. Do you want to remove the shortcut?"
+    }
+  },
+  "editor": {
+    "newCommand": "New Command",
+    "editCommand": "Edit Command",
+    "command": "Command",
+    "window": "Window",
+    "cancel": "Cancel",
+    "save": "Save",
+    "windowOptions": {
+      "zeroTips": "Zero value uses default",
+      "size": "Window Size",
+      "resizable": "Resizable",
+      "minSize": "Min Size",
+      "maxSize": "Max Size",
+      "alwaysOnTop": "Always On Top"
+    },
+    "commandCode": {
+      "command": "Command",
+      "inputPath": "InputPath",
+      "inputDir": "InputDir",
+      "inputName": "InputName",
+      "inputExt": "InputExt",
+      "inpoutNo": "InputNo."
+    },
+    "fileFiltersEditor": {
+      "name": "Filter Name",
+      "extensions": "Extensions",
+      "extensionsPlaceholder": "Type the file extension, such as `jpg`, and press `Enter` or `,` to add it.",
+      "operation": "Ops",
+      "noData": "No Data",
+      "add": "Add",
+      "moveUp": "Move Up",
+      "moveDown": "Move Down",
+      "remove": "Remove",
+      "cancel": "Cancel",
+      "save": "Save",
+      "image": "Image",
+      "video": "Video",
+      "audio": "Audio",
+      "text": "Text",
+      "allFiles": "All Files"
+    },
+    "optionsEditor": {
+      "label": "Label",
+      "value": "Value",
+      "operation": "Ops",
+      "noData": "No Data",
+      "add": "Add",
+      "moveUp": "Move Up",
+      "moveDown": "Move Down",
+      "remove": "Remove",
+      "cancel": "Cancel",
+      "save": "Save"
+    }
+  },
+  "widgets": {
+    "base": {
+      "label": "Command",
+      "options": {
+        "name": "Name",
+        "command": "Command",
+        "commandDescription": "The command to be executed, such as `ffmpeg`. If the `Real Path` is set, this field can be left blank.",
+        "realPath": "Real Path",
+        "realPathDescription": "The real path to the executable file, will be automatically filled in based on the `Command`, or it can be set manually.",
+        "icon": "Icon",
+        "iconDescription": "The command icon, will be automatically obtained based on the `Real Path`, or it can be set manually.",
+        "description": "Description"
+      }
+    },
+    "input": {
+      "label": "Input",
+      "options": {
+        "openDirectory": "Open Directory",
+        "filters": "File Filters",
+        "title": "Dialog Title",
+        "defaultPath": "Default Path"
+      },
+      "component": {
+        "add": "Add",
+        "remove": "Remove",
+        "clear": "Clear",
+        "path": "Path",
+        "operation": "Ops",
+        "dropFiles": "Drop files here",
+        "dropDirectory": "Drop directory here",
+        "error": "Error",
+        "stoppedByUser": "Stopped by user",
+        "unknowError": "Unknown error",
+        "reset": "Reset",
+        "open": "Open",
+        "showInFolder": "Show In Folder",
+        "notExists": "The path does not exist",
+        "failed": "Operation failed",
+        "ok": "OK",
+        "selectAll": "Select All",
+        "selectInvert": "Select Invert"
+      }
+    },
+    "output": {
+      "label": "Output",
+      "component": {
+        "outDir": "Out Dir",
+        "inputDir": "Input Dir",
+        "outName": "Out Name",
+        "inputNo": "Input No.",
+        "inputName": "Input Name",
+        "inputExt": "Input Ext",
+        "overwrite": "Overwrite",
+        "overwriteTips": "When enabled, if the output path already exists, it will be overwritten;\n\notherwise, a number will be appended to the filename, such as `(1)`.",
+        "noInput": "No input detected"
+      }
+    },
+    "cwd": {
+      "label": "cwd"
+    },
+    "open": {
+      "label": "Open",
+      "options": {
+        "openDirectory": "Open Directory",
+        "filters": "File Filters",
+        "title": "Dialog Title",
+        "defaultPath": "Default Path"
+      }
+    },
+    "text": {
+      "label": "Text",
+      "options": {
+        "type": "Type",
+        "typeOptions": {
+          "text": "Text",
+          "textarea": "Textarea"
+        }
+      }
+    },
+    "switch": {
+      "label": "Switch"
+    },
+    "number": {
+      "label": "Number",
+      "options": {
+        "min": "Min",
+        "max": "Max",
+        "step": "Step"
+      }
+    },
+    "slider": {
+      "label": "Slider",
+      "options": {
+        "min": "Min",
+        "max": "Max",
+        "step": "Step"
+      }
+    },
+    "radio": {
+      "label": "Radio",
+      "sample": {
+        "option1": "Option 1",
+        "option2": "Option 2"
+      }
+    },
+    "checkbox": {
+      "label": "Checkbox",
+      "sample": {
+        "option1": "Option 1",
+        "option2": "Option 2"
+      },
+      "options": {
+        "joinWith": "Join With",
+        "joinWithTips": "- A separator for concatenating multiple options, such as `;`, resulting in `value1;value2`.\n- When set to `[SPACE]`, the values ​​will be enclosed in quotes, such as `\"value1 value2\"`.\n- If not set, each option will be treated as a separate command-line argument."
+      }
+    },
+    "select": {
+      "label": "Select",
+      "sample": {
+        "option1": "Option 1",
+        "option2": "Option 2"
+      }
+    },
+    "alert": {
+      "label": "Alert",
+      "options": {
+        "title": "Title",
+        "description": "Description",
+        "showIcon": "Show Icon",
+        "type": "Type",
+        "typeOptions": {
+          "primary": "Primary",
+          "success": "Success",
+          "info": "Info",
+          "warning": "Warning",
+          "error": "Error"
+        }
+      }
+    },
+    "divider": {
+      "label": "Divider",
+      "options": {
+        "content": "Content",
+        "contentPosition": "Content Position",
+        "contentPositionOptions": {
+          "left": "Left",
+          "center": "Center",
+          "right": "Right"
+        }
+      }
+    }
+  },
+  "widgetOptions": {
+    "label": "Label",
+    "key": "Key",
+    "keyDescription": "e.g., `-i=`, `-o`, leave it empty if there is no key.",
+    "value": "Value",
+    "setting": "Setting",
+    "description": "Description",
+    "markdownTips": "Supports Markdown syntax",
+    "required": "Required",
+    "readonly": "Read Only",
+    "hidden": "Hidden",
+    "fileFilter": {
+      "noData": "No Data"
+    }
+  },
+  "item": {
+    "run": "Run",
+    "stop": "Stop",
+    "command": "Command",
+    "log": "Log",
+    "logDialog": {
+      "find": "Find",
+      "matchCase": "Match Case",
+      "matchWholeWord": "Match Whole Word",
+      "useRegularExpression": "Use Regular Expression",
+      "previousMatch": "Previous Match",
+      "nextMatch": "Next Match",
+      "matchResult": "{no} of {total}",
+      "noResults": "No results",
+      "copy": "Copy",
+      "clear": "Clear"
+    }
+  }
+}

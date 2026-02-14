@@ -1,0 +1,38 @@
+{
+  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "include": [
+    "src/shared/**/*",
+    "src/preload/*.d.ts",
+    "src/renderer/env.d.ts",
+    "src/renderer/store/**/*",
+    "src/renderer/list/**/*",
+    "src/renderer/item/**/*",
+    "src/renderer/components/**/*",
+    "src/renderer/widgets/**/*",
+    "src/renderer/utils/**/*",
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@assets/*": [
+        "src/renderer/assets/*"
+      ],
+      "@utils/*": [
+        "src/renderer/utils/*"
+      ],
+      "@components/*": [
+        "src/renderer/components/*"
+      ],
+      "@widgets/*": [
+        "src/renderer/widgets/*"
+      ],
+      "@store/*": [
+        "src/renderer/store/*"
+      ]
+    }
+  }
+}
