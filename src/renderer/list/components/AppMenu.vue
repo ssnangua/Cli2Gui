@@ -64,7 +64,7 @@ const items = ref<MenuItem[]>([
     icon: 'github',
     divided: true,
     click() {
-      window.api.openExternal('https://github.com/ssnangua/iyo-image-converter')
+      window.api.openExternal('https://github.com/ssnangua/Cli2Gui')
     }
   },
   {
