@@ -24,8 +24,7 @@ Edit View:<br>
 <img alt="Edit View" width="600" src="./screenshots/EditView.jpg">
 
 Run View:<br>
-<img alt="Run View" width="600" src="./screenshots/
-RunView.jpg">
+<img alt="Run View" width="600" src="./screenshots/RunView.jpg">
 
 ## Project Setup
 
