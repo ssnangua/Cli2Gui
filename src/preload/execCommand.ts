@@ -1,4 +1,5 @@
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process'
+import spawnCommand from 'spawn-command'
 import treekill from 'tree-kill'
 import iconv from 'iconv-lite'
 import jschardet from 'jschardet'
@@ -14,6 +15,33 @@ function decodeData(callback) {
 
 const childMap = new Map<number, ChildProcessWithoutNullStreams>()
 
+export function runCommand({
+  command,
+  options = {},
+  onError,
+  onExit,
+  onDisconnect,
+  onClose,
+  onStdoutData,
+  onStderrData
+}: RunCommandOptions): number | undefined {
+  const child = spawnCommand(command, options)
+  if (child.pid) childMap.set(child.pid, child)
+  if (onStdoutData) child.stdout.on('data', decodeData(onStdoutData))
+  if (onStderrData) child.stderr.on('data', decodeData(onStderrData))
+  if (onDisconnect) child.on('disconnect', onDisconnect)
+  if (onClose) child.on('close', onClose)
+  child.on('error', (err) => {
+    if (child.pid) childMap.delete(child.pid)
+    if (onError) onError(err)
+  })
+  child.on('exit', (code, signal) => {
+    if (child.pid) childMap.delete(child.pid)
+    if (onExit) onExit(code, signal)
+  })
+  return child.pid
+}
+
 export function execCommand({
   command,
   args = [],
@@ -25,7 +53,10 @@ export function execCommand({
   onStdoutData,
   onStderrData
 }: RunCommandOptions): number | undefined {
-  const child = spawn(command, args, options)
+  const child =
+    process.platform === 'darwin' && command.endsWith('.app')
+      ? spawn('open', ['-n', '-a', command, ...args])
+      : spawn(command, args, options)
   if (child.pid) childMap.set(child.pid, child)
   if (onStdoutData) child.stdout.on('data', decodeData(onStdoutData))
   if (onStderrData) child.stderr.on('data', decodeData(onStderrData))

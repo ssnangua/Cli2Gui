@@ -89,19 +89,6 @@ export interface CommandOption {
   _selected?: boolean // 用于交互
 }
 
-// 解析 CommandOption 得到的命令配置项
-// 示例：{ key: '-i=', value: 'input.txt', args: ['-i=input.txt'] }
-// 示例：{ key: '-i', value: 'input.txt', args: ['-i', 'input.txt'] }
-export interface ParsedCommandOption {
-  // 用于 MyCommandCode 组件显示
-  key?: string
-  value?: string
-  // 用于执行命令
-  args?: string[]
-  // 其他
-  output?: string // 输出路径，只存在于输出控件，方便执行命令时创建输出目录
-}
-
 // 命令窗口配置
 export interface CommandWindow {
   icon?: string
@@ -150,6 +137,19 @@ export interface ComponentOption {
   value: string
   labelKey?: string // label 的 i18n key，用于内建选项（如 alert 的类型）和预设选项（如 `选项1`、`选项2`）
   type?: '' | 'primary' | 'success' | 'warning' | 'info' | 'error' // alert 的类型
+}
+
+// 解析命令配置项得到的命令参数
+// 示例：{ key: '-i=', value: 'input.txt', args: ['-i=input.txt'] }
+// 示例：{ key: '-i', value: 'input.txt', args: ['-i', 'input.txt'] }
+export interface ParsedCommandOption {
+  // 用于 MyCommandCode 组件显示
+  key?: string
+  value?: string
+  // 用于执行命令
+  args?: string[]
+  // 其他
+  output?: string // 输出路径，只存在于输出控件，方便执行命令时创建输出目录
 }
 
 export interface RunCommandOptions {

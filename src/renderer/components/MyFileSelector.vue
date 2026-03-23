@@ -21,14 +21,25 @@ const emit = defineEmits<{
 }>()
 
 function showOpenDialog(): void {
+  const properties: Array<'showHiddenFiles' | 'openDirectory' | 'openFile'> = ['showHiddenFiles']
+  if (props.exectuble && window.electron.process.platform === 'darwin') {
+    properties.push('openDirectory', 'openFile')
+  } else {
+    properties.push(props.openDirectory ? 'openDirectory' : 'openFile')
+  }
   window.api
     .showOpenDialog({
       title: props.title,
       defaultPath: props.defaultPath,
       filters: toRaw(props.filters),
-      properties: ['showHiddenFiles', props.openDirectory ? 'openDirectory' : 'openFile']
+      properties
     })
     .then(({ filePaths }) => {
+      if (props.exectuble && window.electron.process.platform === 'darwin') {
+        filePaths = filePaths.filter((path) =>
+          window.api.isDirectory(path) ? /\.app$/i.test(path) : window.api.isExecutable(path)
+        )
+      }
       if (filePaths.length > 0 && filePaths[0] !== model.value) {
         model.value = filePaths[0]
         emit('change', model.value)
@@ -58,6 +69,15 @@ function onDrop(e: DragEvent): void {
   const files = handleDropFiles(e).filter((file) => {
     if (props.openDirectory) {
       if (!window.api.isDirectory(file.path)) return false
+    } else {
+      if (!window.api.isFile(file.path)) {
+        if (
+          !props.exectuble ||
+          window.electron.process.platform !== 'darwin' ||
+          !/\.app$/i.test(file.name)
+        )
+          return false
+      }
     }
     if (props.exectuble) {
       if (!window.api.isExecutable(file.path)) return false
@@ -92,9 +112,10 @@ defineExpose({
     @dragenter="isDragover = true"
     @dragleave="isDragover = false"
     @drop="onDrop"
+    @change="emit('change', model!)"
   >
     <template #append>
-      <el-button @click="props.isSave ? showSaveDialog() : showOpenDialog()">
+      <el-button :disabled="disabled" @click="props.isSave ? showSaveDialog() : showOpenDialog()">
         <i class="iconfont icon-folder-open"></i>
       </el-button>
     </template>

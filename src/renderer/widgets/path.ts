@@ -1,13 +1,13 @@
 import { CommandOption, Widget } from '@shared/typings'
 
 const open: Widget = {
-  name: 'open',
+  name: 'path',
   icon: 'folder-open',
-  label: 'widgets.open.label',
+  label: 'widgets.path.label',
   component: 'my-file-selector',
 
   data: {
-    widget: 'open',
+    widget: 'path',
     label: '',
     key: '',
     value: '',
@@ -26,24 +26,24 @@ const open: Widget = {
   options: [
     {
       attrKey: 'openDirectory',
-      label: 'widgets.open.options.openDirectory',
+      label: 'widgets.path.options.openDirectory',
       component: 'el-switch'
     },
     {
       attrKey: 'filters',
-      label: 'widgets.open.options.filters',
+      label: 'widgets.path.options.filters',
       component: 'my-file-filters',
       show: (option: CommandOption) => !option.attrs?.openDirectory,
       setting: true
     },
     {
       attrKey: 'title',
-      label: 'widgets.open.options.title',
+      label: 'widgets.path.options.title',
       component: 'el-input'
     },
     {
       attrKey: 'defaultPath',
-      label: 'widgets.open.options.defaultPath',
+      label: 'widgets.path.options.defaultPath',
       component: 'my-file-selector',
       attrs: {
         openDirectory: true

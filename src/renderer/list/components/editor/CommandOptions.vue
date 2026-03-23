@@ -39,6 +39,7 @@ onMounted(() => {
     group="options"
     :animation="150"
     draggable=".draggable"
+    ghost-class="ghost"
     @add="selectIndex($event.newIndex)"
   >
     <div
@@ -93,6 +94,10 @@ onMounted(() => {
   }
 }
 
+.ghost {
+  opacity: 0.5;
+}
+
 .command-option {
   pointer-events: none;
 }
@@ -106,7 +111,7 @@ onMounted(() => {
   z-index: 9999;
   background: rgba(255, 255, 255, 0.01);
   /* &:hover {
-    outline: dotted 1px var(--el-color-primary);
+    outline: 2px dotted var(--el-color-primary);
   } */
 }
 

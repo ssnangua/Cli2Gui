@@ -45,6 +45,7 @@ export async function generateWindowIcon(itemIcon: string, size: number = 64): P
  * @returns 绘制后的命令图标
  */
 export async function drawIcon(src: string): Promise<string> {
+  canvas.width = canvas.height = 64
   await drawImage(src, 0, 0, 64)
   const icon = canvas.toDataURL('image/png')
   // 清除画布，以便下次使用

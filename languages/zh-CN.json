@@ -33,6 +33,7 @@
       "cancel": "取消"
     },
     "noData": "无数据",
+    "unnamed": "未命名",
     "itemMenu": {
       "edit": "编辑",
       "export": "导出",
@@ -159,8 +160,18 @@
     "cwd": {
       "label": "工作目录"
     },
-    "open": {
-      "label": "打开",
+    "command": {
+      "label": "命令",
+      "component": {
+        "command": "命令",
+        "cwd": "工作目录",
+        "log": "日志",
+        "run": "运行",
+        "stop": "停止"
+      }
+    },
+    "path": {
+      "label": "路径",
       "options": {
         "openDirectory": "选择目录",
         "filters": "过滤器",

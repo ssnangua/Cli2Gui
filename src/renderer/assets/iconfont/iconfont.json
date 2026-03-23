@@ -1,0 +1,394 @@
+{
+  "id": "4093608",
+  "name": "cli2gui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3107456",
+      "name": "关闭",
+      "font_class": "close",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "927642",
+      "name": "退出",
+      "font_class": "quit",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "39179502",
+      "name": "主界面",
+      "font_class": "main-interface",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "27363966",
+      "name": "停止",
+      "font_class": "stop",
+      "unicode": "eba5",
+      "unicode_decimal": 60325
+    },
+    {
+      "icon_id": "11944595",
+      "name": "重置",
+      "font_class": "reset",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
+      "icon_id": "7316386",
+      "name": "反选",
+      "font_class": "select-invert",
+      "unicode": "e749",
+      "unicode_decimal": 59209
+    },
+    {
+      "icon_id": "19881851",
+      "name": "全选",
+      "font_class": "select-all",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "88609",
+      "name": "复制",
+      "font_class": "copy",
+      "unicode": "e706",
+      "unicode_decimal": 59142
+    },
+    {
+      "icon_id": "6839174",
+      "name": "快捷方式",
+      "font_class": "shortcut",
+      "unicode": "e74e",
+      "unicode_decimal": 59214
+    },
+    {
+      "icon_id": "4770724",
+      "name": "导入",
+      "font_class": "import",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "4770726",
+      "name": "导出",
+      "font_class": "export",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "38606507",
+      "name": "无",
+      "font_class": "none",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "40290430",
+      "name": "亮模式",
+      "font_class": "light",
+      "unicode": "ee4a",
+      "unicode_decimal": 61002
+    },
+    {
+      "icon_id": "42092246",
+      "name": "暗模式",
+      "font_class": "dark",
+      "unicode": "e6d9",
+      "unicode_decimal": 59097
+    },
+    {
+      "icon_id": "27402302",
+      "name": "菜单",
+      "font_class": "menu",
+      "unicode": "ee15",
+      "unicode_decimal": 60949
+    },
+    {
+      "icon_id": "5634755",
+      "name": "markdown",
+      "font_class": "markdown",
+      "unicode": "f1eb",
+      "unicode_decimal": 61931
+    },
+    {
+      "icon_id": "32016685",
+      "name": "工作目录",
+      "font_class": "cwd",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "9825292",
+      "name": "大小写",
+      "font_class": "case-sensitive",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "30269782",
+      "name": "正则",
+      "font_class": "regexp",
+      "unicode": "e81a",
+      "unicode_decimal": 59418
+    },
+    {
+      "icon_id": "36321450",
+      "name": "全字匹配",
+      "font_class": "whole-word",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "4936459",
+      "name": "清空",
+      "font_class": "clear",
+      "unicode": "e842",
+      "unicode_decimal": 59458
+    },
+    {
+      "icon_id": "6598347",
+      "name": "搜索",
+      "font_class": "search",
+      "unicode": "e8ef",
+      "unicode_decimal": 59631
+    },
+    {
+      "icon_id": "4937000",
+      "name": "GitHub",
+      "font_class": "github",
+      "unicode": "e885",
+      "unicode_decimal": 59525
+    },
+    {
+      "icon_id": "22095753",
+      "name": "语言",
+      "font_class": "language",
+      "unicode": "e9cf",
+      "unicode_decimal": 59855
+    },
+    {
+      "icon_id": "20113749",
+      "name": "终端",
+      "font_class": "terminal",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
+      "icon_id": "27363804",
+      "name": "开始",
+      "font_class": "start",
+      "unicode": "eb79",
+      "unicode_decimal": 60281
+    },
+    {
+      "icon_id": "4403227",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "46765236",
+      "name": "清空x",
+      "font_class": "clear-x",
+      "unicode": "e83e",
+      "unicode_decimal": 59454
+    },
+    {
+      "icon_id": "31557248",
+      "name": "打开文件",
+      "font_class": "open-file",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "1129",
+      "name": "文件夹-关闭",
+      "font_class": "folder-close",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "18034955",
+      "name": "输出",
+      "font_class": "output",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "18034956",
+      "name": "输入",
+      "font_class": "input",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    },
+    {
+      "icon_id": "1126",
+      "name": "文件夹-打开",
+      "font_class": "folder-open",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "36218502",
+      "name": "拖放",
+      "font_class": "drag-drop",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "7712654",
+      "name": "移除",
+      "font_class": "remove",
+      "unicode": "e72a",
+      "unicode_decimal": 59178
+    },
+    {
+      "icon_id": "7712688",
+      "name": "下移",
+      "font_class": "move-down",
+      "unicode": "e731",
+      "unicode_decimal": 59185
+    },
+    {
+      "icon_id": "7712690",
+      "name": "上移",
+      "font_class": "move-up",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
+      "icon_id": "29208690",
+      "name": "编辑",
+      "font_class": "edit",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "34453014",
+      "name": "帮助",
+      "font_class": "help-fill",
+      "unicode": "e83d",
+      "unicode_decimal": 59453
+    },
+    {
+      "icon_id": "39316172",
+      "name": "必填项",
+      "font_class": "required",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "1174299",
+      "name": "设置",
+      "font_class": "setting",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "29523867",
+      "name": "空格",
+      "font_class": "space",
+      "unicode": "e775",
+      "unicode_decimal": 59253
+    },
+    {
+      "icon_id": "5127292",
+      "name": "更多-横",
+      "font_class": "dots-h",
+      "unicode": "e776",
+      "unicode_decimal": 59254
+    },
+    {
+      "icon_id": "5127294",
+      "name": "更多-竖",
+      "font_class": "dots-v",
+      "unicode": "e777",
+      "unicode_decimal": 59255
+    },
+    {
+      "icon_id": "5127349",
+      "name": "图标视图",
+      "font_class": "grid-alt",
+      "unicode": "e79b",
+      "unicode_decimal": 59291
+    },
+    {
+      "icon_id": "5127397",
+      "name": "列表视图",
+      "font_class": "list-alt",
+      "unicode": "e7be",
+      "unicode_decimal": 59326
+    },
+    {
+      "icon_id": "22237783",
+      "name": "滑块",
+      "font_class": "slider",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "577317",
+      "name": "提示",
+      "font_class": "alert",
+      "unicode": "e72b",
+      "unicode_decimal": 59179
+    },
+    {
+      "icon_id": "2471344",
+      "name": "单选 ",
+      "font_class": "radio",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "2471355",
+      "name": "多选",
+      "font_class": "checkbox",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "2471400",
+      "name": "下拉框",
+      "font_class": "select",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "16852620",
+      "name": "开关按钮",
+      "font_class": "switch",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "16859931",
+      "name": "表单文本框",
+      "font_class": "text",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "16859932",
+      "name": "数字输入框",
+      "font_class": "number",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "34984975",
+      "name": "分割线",
+      "font_class": "divider",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    }
+  ]
+}

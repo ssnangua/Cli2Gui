@@ -33,6 +33,7 @@
       "cancel": "Cancel"
     },
     "noData": "No Data",
+    "unnamed": "Unnamed",
     "itemMenu": {
       "edit": "Edit",
       "export": "Export",
@@ -159,8 +160,18 @@
     "cwd": {
       "label": "cwd"
     },
-    "open": {
-      "label": "Open",
+    "command": {
+      "label": "Command",
+      "component": {
+        "command": "Command",
+        "cwd": "cwd",
+        "log": "Log",
+        "run": "Run",
+        "stop": "Stop"
+      }
+    },
+    "path": {
+      "label": "Path",
       "options": {
         "openDirectory": "Open Directory",
         "filters": "File Filters",

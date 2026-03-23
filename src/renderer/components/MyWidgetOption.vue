@@ -19,9 +19,14 @@ const TYPE_ICON = {
 
 const model = defineModel<unknown>()
 
-const { option, disabled } = defineProps<{
+const {
+  option,
+  disabled,
+  editMode = false
+} = defineProps<{
   option: WidgetOption
   disabled?: boolean
+  editMode?: boolean
 }>()
 
 const marks = computed(() => {
@@ -76,6 +81,7 @@ function onChange(): void {
         v-model="model"
         v-bind="option.attrs"
         :disabled="disabled"
+        :edit-mode="editMode"
         :spellcheck="false"
         :marks="marks"
         @change="onChange"

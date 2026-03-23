@@ -1,0 +1,46 @@
+:root {
+  --el-table-border: 1px solid #ebeef5;
+  --el-table-row-hover-bg-color: #f5f7fa;
+}
+
+.dark {
+  --el-table-border: 1px solid #363637;
+  --el-table-row-hover-bg-color: #262727;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  user-select: none;
+  background-color: var(--el-bg-color-page);
+}
+
+* {
+  -webkit-user-drag: none;
+}
+
+#app {
+  flex: auto;
+  display: flex;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.iconfont {
+  font-size: 14px;
+
+  &.icon-space {
+    font-size: 12px;
+    margin-bottom: -6px;
+  }
+}

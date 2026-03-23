@@ -455,7 +455,10 @@ function onKeydown(event: KeyboardEvent): void {
 
 <style scoped>
 .my-file-list {
+  display: flex;
+  flex-flow: column;
   overflow: hidden;
+
   .toolbar {
     height: 32px;
     text-align: right;

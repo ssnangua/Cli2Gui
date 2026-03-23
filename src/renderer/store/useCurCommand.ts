@@ -14,7 +14,7 @@ const inputOption = computed(() => findOption('input'))
 const outputOption = computed(() => findOption('output'))
 const otherOptions = computed(() =>
   curCommand.value?.options.filter(({ widget }) => {
-    return widget !== 'command' && widget !== 'cwd' && widget !== 'input' && widget !== 'output'
+    return widget !== 'base' && widget !== 'cwd' && widget !== 'input' && widget !== 'output'
   })
 )
 

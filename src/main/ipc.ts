@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain, nativeTheme, shell } from 'electron'
+import { app, BrowserWindow, dialog, ipcMain, nativeImage, nativeTheme, shell } from 'electron'
 import { openCommandWindow, quitApp, showMainWindow } from './window'
 import { getLanguageSync, checkLanguages, setLocale } from './languages'
 
@@ -18,7 +18,11 @@ ipcMain.handle('get', async (event, { type, data }) => {
       return app.getPath(data)
     // 获取文件图标
     case 'fileIcon':
-      return await app.getFileIcon(data, { size: 'large' })
+      if (process.platform === 'darwin') {
+        return await nativeImage.createThumbnailFromPath(data, { width: 48, height: 48 })
+      } else {
+        return await app.getFileIcon(data, { size: 'large' })
+      }
     // 打开文件选择对话框
     case 'showOpenDialog':
       return dialog.showOpenDialog(window, data)

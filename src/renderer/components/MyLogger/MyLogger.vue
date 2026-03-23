@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { useTemplateRef, onMounted, onUnmounted, ref, watch } from 'vue'
-import { xterm, fitAddon, searchAddon } from './xterm'
+import { useTemplateRef, ref, watch } from 'vue'
+import { newXterm } from './xterm'
 import SearchButton from './SearchButton.vue'
 import SearchOptoin from './SearchOptoin.vue'
+
+const { xterm, fitAddon, searchAddon } = newXterm()
+
+const isShowSearch = ref(false)
+function onWindowResize({ width }): void {
+  fitAddon.fit()
+  isShowSearch.value = width > 450
+}
 
 const searchInput = useTemplateRef('searchInput')
 const searchTerm = ref('')
@@ -54,25 +62,12 @@ function clear(): void {
 const terminalRef = useTemplateRef('terminal')
 
 let isXtermMounted = false
-function mountXterm(): void {
-  if (isXtermMounted) return
-  if (terminalRef.value) {
+function onWindowMounted(): void {
+  if (!isXtermMounted && terminalRef.value) {
     isXtermMounted = true
     xterm.open(terminalRef.value)
     setTimeout(() => fitAddon.fit(), 0)
   }
-}
-
-onMounted(() => {
-  window.addEventListener('resize', onResize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', onResize)
-})
-
-function onResize(): void {
-  fitAddon.fit()
 }
 
 const xtermMenuItems = [{ label: 'item.logDialog.clear', icon: 'clear', click: clear }]
@@ -96,25 +91,31 @@ function onXtermContextMenu(event: MouseEvent): void {
     xtermMenu.value?.open(event)
   }
 }
+
+const $window = useTemplateRef('window')
+defineExpose({
+  xterm,
+  focus() {
+    $window.value.focus()
+  }
+})
 </script>
 
 <template>
-  <el-dialog
+  <my-window
+    ref="window"
     :title="$t('item.log')"
-    width="80vw"
-    modal-class="xterm-dialog"
-    body-class="xterm-dialog-body"
-    align-center
-    draggable
-    :modal="false"
-    modal-penetrable
-    @open="mountXterm"
+    body-class="log-window"
+    width="70%"
+    height="70%"
+    @mounted="onWindowMounted"
+    @resize="onWindowResize"
   >
     <div ref="terminal" class="my-xterm" @contextmenu.prevent="onXtermContextMenu"></div>
     <my-popup-menu ref="xtermMenu" :items="xtermMenuItems" />
     <my-popup-menu ref="xtermSelectionMenu" :items="xtermSelectionMenuItems" />
 
-    <div class="xterm-toolbar">
+    <div class="xterm-toolbar" :class="{ 'show-search': isShowSearch }">
       <div class="xterm-search">
         <el-input
           ref="searchInput"
@@ -181,7 +182,7 @@ function onXtermContextMenu(event: MouseEvent): void {
         {{ $t('item.logDialog.clear') }}
       </el-button>
     </div>
-  </el-dialog>
+  </my-window>
 </template>
 
 <style scoped>
@@ -190,13 +191,20 @@ function onXtermContextMenu(event: MouseEvent): void {
 }
 
 .xterm-toolbar {
-  padding-top: 10px;
+  padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+
+  &.show-search {
+    justify-content: space-between;
+    .xterm-search {
+      display: flex;
+    }
+  }
 }
 .xterm-search {
   width: calc(100% - 75px);
-  display: flex;
+  display: none;
   align-items: center;
   gap: 10px;
   margin-right: 10px;
@@ -214,17 +222,10 @@ function onXtermContextMenu(event: MouseEvent): void {
 :deep(.xterm-search) .el-input__wrapper {
   padding-right: 3px;
 }
-
-@media screen and (max-width: 600px) {
-  .xterm-search > * {
-    display: none;
-  }
-}
 </style>
 
 <style>
-.xterm-dialog-body {
-  height: 70vh;
+.log-window {
   overflow: hidden;
   display: flex;
   flex-flow: column;

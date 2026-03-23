@@ -2,6 +2,10 @@
 import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
 import { FileExtra, handleDropFiles } from '@utils/dropUtil'
 
+const { disabled = false } = defineProps<{
+  disabled?: boolean
+}>()
+
 const isDragover = ref(false)
 const emit = defineEmits<{
   drop: [FileExtra[]]
@@ -11,10 +15,17 @@ const $el = useTemplateRef<HTMLDivElement>('root')
 const parent = computed(() => $el.value?.parentElement)
 
 function onDragover(): void {
+  if (disabled) return
   isDragover.value = true
 }
 
+function onDragleave(): void {
+  if (disabled) return
+  isDragover.value = false
+}
+
 function onDrop(e: DragEvent): void {
+  if (disabled) return
   const files = handleDropFiles(e)
   emit('drop', files)
   isDragover.value = false
@@ -43,7 +54,7 @@ onUnmounted(() => {
     ref="root"
     class="my-drop-files"
     :class="{ 'is-dragover': isDragover }"
-    @dragleave="isDragover = false"
+    @dragleave="onDragleave"
     @drop="onDrop"
   >
     <div class="box">

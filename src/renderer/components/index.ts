@@ -1,33 +1,41 @@
-import MyEmpty from '@components/MyEmpty.vue'
-import MyDescription from '@components/MyDescription.vue'
-import MyHelpTooltip from '@components/MyHelpTooltip.vue'
-import MyDropFiles from '@components/MyDropFiles.vue'
-import MyPopupMenu from '@components/MyPopupMenu.vue'
-import MyCommandCode from '@components/MyCommandCode.vue'
-import MyCommandBase from '@components/MyCommandBase.vue'
-import MyIconSelector from '@components/MyIconSelector.vue'
-import MyFileSelector from '@components/MyFileSelector.vue'
-import MyFileList from '@components/MyFileList.vue'
-import MyOutput from '@components/MyOutput.vue'
-import MyFileFilters from '@components/MyFileFilters.vue'
-import MyCommandOption from '@components/MyCommandOption.vue'
-import MyWidgetOption from '@components/MyWidgetOption.vue'
+import MyLogger from './MyLogger/MyLogger.vue'
+import MyWindow from './MyWindow/MyWindow.vue'
+import MyCommand from './MyCommand.vue'
+import MyCommandBase from './MyCommandBase.vue'
+import MyCommandCode from './MyCommandCode.vue'
+import MyCommandOption from './MyCommandOption.vue'
+import MyDescription from './MyDescription.vue'
+import MyDropFiles from './MyDropFiles.vue'
+import MyEmpty from './MyEmpty.vue'
+import MyFileFilters from './MyFileFilters.vue'
+import MyFileList from './MyFileList.vue'
+import MyFileSelector from './MyFileSelector.vue'
+import MyHelpTooltip from './MyHelpTooltip.vue'
+import MyIconSelector from './MyIconSelector.vue'
+import MyOutput from './MyOutput.vue'
+import MyPopupMenu from './MyPopupMenu.vue'
+import MyToggler from './MyToggler.vue'
+import MyWidgetOption from './MyWidgetOption.vue'
 
 export default {
   install(app) {
-    app.component('MyEmpty', MyEmpty)
-    app.component('MyDescription', MyDescription)
-    app.component('MyHelpTooltip', MyHelpTooltip)
-    app.component('MyDropFiles', MyDropFiles)
-    app.component('MyPopupMenu', MyPopupMenu)
-    app.component('MyCommandCode', MyCommandCode)
+    app.component('MyLogger', MyLogger)
+    app.component('MyWindow', MyWindow)
+    app.component('MyCommand', MyCommand)
     app.component('MyCommandBase', MyCommandBase)
-    app.component('MyIconSelector', MyIconSelector)
-    app.component('MyFileSelector', MyFileSelector)
-    app.component('MyFileList', MyFileList)
-    app.component('MyOutput', MyOutput)
-    app.component('MyFileFilters', MyFileFilters)
+    app.component('MyCommandCode', MyCommandCode)
     app.component('MyCommandOption', MyCommandOption)
+    app.component('MyDescription', MyDescription)
+    app.component('MyDropFiles', MyDropFiles)
+    app.component('MyEmpty', MyEmpty)
+    app.component('MyFileFilters', MyFileFilters)
+    app.component('MyFileList', MyFileList)
+    app.component('MyFileSelector', MyFileSelector)
+    app.component('MyHelpTooltip', MyHelpTooltip)
+    app.component('MyIconSelector', MyIconSelector)
+    app.component('MyOutput', MyOutput)
+    app.component('MyPopupMenu', MyPopupMenu)
+    app.component('MyToggler', MyToggler)
     app.component('MyWidgetOption', MyWidgetOption)
   }
 }

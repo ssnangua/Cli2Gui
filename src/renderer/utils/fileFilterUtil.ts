@@ -16,7 +16,7 @@ export const commonFileFiterMap: Record<string, FileFilter> = {
   video: {
     name: 'editor.fileFiltersEditor.video',
     extensions: split(
-      '3g2,3gp,aaf,asf,avchd,avi,car,dav,drc,flv,m2v,m2ts,m4p,m4v,mkv,mng,mov,mp2,mp4,mpe,mpeg,mpg,mpv,mts,mxf,nsv,ogv,ogm,ogx,qt,rm,rmvb,roq,srt,svi,vob,webm,wmv,xba,yuv'
+      '3g2,3gp,aaf,asf,avchd,avi,car,dav,drc,flv,m2v,m2ts,m4p,m4v,mkv,mng,mov,mp2,mp4,mpe,mpeg,mpg,mpv,mts,mxf,nsv,ogv,ogm,ogx,qt,rm,rmvb,roq,svi,vob,webm,wmv,xba,yuv'
     )
   },
   audio: {

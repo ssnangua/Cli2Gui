@@ -53,7 +53,9 @@ defineExpose({
 })
 
 const canConfirm = computed(() => {
-  return curCommand.value?.base.command || curCommand.value?.base.realPath
+  if (!curCommand.value) return false
+  const { name, command, realPath } = curCommand.value.base
+  return name || command || realPath
 })
 
 async function confirm(): Promise<void> {
@@ -61,9 +63,9 @@ async function confirm(): Promise<void> {
     // 移除第一个配置项（即命令基本信息）
     curCommand.value.options.shift()
     // 生成窗口图标
-    if (curCommand.value.base.icon) {
-      curCommand.value.window.icon = await generateWindowIcon(curCommand.value.base.icon)
-    }
+    curCommand.value.window.icon = curCommand.value.base.icon
+      ? await generateWindowIcon(curCommand.value.base.icon)
+      : ''
     // 清理临时属性
     curCommand.value.options.forEach((widget) => {
       delete widget._key

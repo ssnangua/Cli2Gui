@@ -5,6 +5,7 @@ import { Command } from '@shared/typings'
 type ViewMode = 'grid-view' | 'list-view'
 const viewMode = useStorage<ViewMode>('view-mode', 'grid-view')
 
+const isDragging = ref(false)
 const isExporting = ref(false)
 const isSelectAll = ref(false)
 const selectedItems = ref<Command[]>([])
@@ -13,6 +14,7 @@ const selectedItems = ref<Command[]>([])
 function useListStore() {
   return {
     viewMode,
+    isDragging,
     isExporting,
     isSelectAll,
     selectedItems

@@ -1,5 +1,6 @@
 import { generateWindowIcon } from '@utils/iconUtil'
 import useData from '@store/useData'
+import appIcon from '@assets/icon.png'
 
 const data = useData()
 
@@ -14,7 +15,7 @@ async function addCommandItem(command: string): Promise<void> {
       realPath: file.realPath
     }
     const window = {
-      icon: await generateWindowIcon(file.icon)
+      icon: await generateWindowIcon(file.icon || appIcon)
     }
     const item = data.createItem(base, window)
     data.setItem(item._id, item)

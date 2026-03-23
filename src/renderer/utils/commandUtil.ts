@@ -50,7 +50,7 @@ export function parseKeyValue(key: string, value: string): ParsedCommandOption {
  * 解析命令
  */
 export function parseCommand(command: Command): string {
-  return parseValue(command.base.command || command.base.realPath)
+  return command.base.command || parseValue(command.base.realPath)
 }
 
 /**

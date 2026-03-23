@@ -1,18 +1,19 @@
 import { Widget, WidgetOption } from '@shared/typings'
-import base from './base'
-import cwd from './cwd'
-import input from './input'
-import output from './output'
-import open from './open'
-import text from './text'
-import number from './number'
-import slider from './slider'
-import radio from './radio'
-import checkbox from './checkbox'
-import select from './select'
-import _switch from './switch'
 import alert from './alert'
+import base from './base'
+import checkbox from './checkbox'
+import command from './command'
+import cwd from './cwd'
 import divider from './divider'
+import input from './input'
+import number from './number'
+import output from './output'
+import path from './path'
+import radio from './radio'
+import select from './select'
+import slider from './slider'
+import _switch from './switch'
+import text from './text'
 
 /**
  * 控件映射表
@@ -22,7 +23,8 @@ export const widgetsMap: { [key: string]: Widget } = {
   input,
   output,
   cwd,
-  open,
+  command,
+  path,
   text,
   switch: _switch,
   number,

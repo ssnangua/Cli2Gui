@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { nextTick, ref, useTemplateRef, watch } from 'vue'
 import { useStorage } from '@vueuse/core'
 import { cloneDeep } from 'lodash-es'
 import '@store/useTheme'
 import { widgetsMap } from '@widgets/widgets'
+import useI18n from '@store/useI18n'
 import useCurCommand from '@store/useCurCommand'
 import useData from '@store/useData'
-import { xterm } from './components/xterm'
-import Log from './components/Log.vue'
-import { execCommand } from './execCommand'
+import Runner from '@utils/Runner'
+import getCommand from './getCommand'
 
-const showCommandCode = useStorage('show-command-code', false)
-const showXtermDialog = ref(false)
+const { locale, t } = useI18n()
 
 const { curCommand, cwdOption, inputOption, outputOption, otherOptions, inputs } = useCurCommand()
 
@@ -19,12 +18,35 @@ const data = useData()
 const id = new URLSearchParams(location.search).get('id')!
 curCommand.value = cloneDeep(data.getItem(+id))
 
+const { name, command } = curCommand.value!.base
+function updateTitle(): void {
+  document.title = name || command || t('list.unnamed')
+}
+updateTitle()
+watch(locale, updateTitle)
+
+const isShowCommandCode = useStorage('is-show-command-code', false)
+const logger = useTemplateRef('logger')
+const isShowLogger = ref(false)
+function showLogger(show: boolean): void {
+  if (show) {
+    isShowLogger.value = true
+    logger.value.focus()
+  } else {
+    isShowLogger.value = false
+  }
+}
+
+const executable = !!curCommand.value!.base.command || !!curCommand.value!.base.realPath
+
 const isProcessing = ref(false)
-let stopHandler: (() => Promise<void>) | null = null
+let runner: Runner | null = null
 let isStop = false
 
 async function start(): Promise<void> {
-  showXtermDialog.value = true
+  const { xterm } = logger.value
+
+  showLogger(true)
   xterm.scrollToBottom()
 
   isProcessing.value = true
@@ -32,11 +54,13 @@ async function start(): Promise<void> {
   if (inputOption.value) {
     const length = inputs.value.length
     if (length > 0) {
-      for (let i = 0; i < length; i++) {
-        const input = inputs.value[i]
+      for (let inputIndex = 0; inputIndex < length; inputIndex++) {
+        const input = inputs.value[inputIndex]
         if (input.state !== 'normal') continue
         input.state = 'processing'
-        const result = await execCommand(curCommand.value!, i, (stop) => (stopHandler = stop))
+        const { command, options } = getCommand(curCommand.value!, inputIndex)
+        runner = new Runner(command, options, xterm)
+        const result = await runner.run()
         console.log(result)
         if (isStop) {
           Object.assign(input, {
@@ -55,24 +79,24 @@ async function start(): Promise<void> {
       }
     }
   } else {
-    const result = await execCommand(curCommand.value!, 0, (stop) => (stopHandler = stop))
+    const { command, options } = getCommand(curCommand.value!, 0)
+    runner = new Runner(command, options, xterm)
+    const result = await runner.run()
     console.log(result)
   }
 
-  stopHandler = null
+  runner = null
   isStop = false
   isProcessing.value = false
 }
 
 function stop(): void {
   isStop = true
-  stopHandler?.()
-    .then(() => {})
-    .catch(() => {})
+  runner?.stop()
 }
 
 function toggleCommandCode(): void {
-  showCommandCode.value = !showCommandCode.value
+  isShowCommandCode.value = !isShowCommandCode.value
   // 触发 resize 事件，让 input 控件重新计算表格高度
   nextTick(() => window.dispatchEvent(new Event('resize')))
 }
@@ -86,7 +110,7 @@ function toggleCommandCode(): void {
         <my-command-option
           v-model="inputOption"
           :widget="widgetsMap.input"
-          :show-key="showCommandCode"
+          :show-key="isShowCommandCode"
           class="input"
         />
       </div>
@@ -97,7 +121,7 @@ function toggleCommandCode(): void {
           v-if="cwdOption && !cwdOption.hidden"
           v-model="cwdOption"
           :widget="widgetsMap.cwd"
-          :show-key="showCommandCode"
+          :show-key="isShowCommandCode"
           class="option"
         />
         <!-- 输出 -->
@@ -105,7 +129,7 @@ function toggleCommandCode(): void {
           v-if="outputOption && !outputOption.hidden"
           v-model="outputOption"
           :widget="widgetsMap.output"
-          :show-key="showCommandCode"
+          :show-key="isShowCommandCode"
           class="option"
         />
         <!-- 配置项 -->
@@ -115,40 +139,30 @@ function toggleCommandCode(): void {
             :key="index"
             v-model="otherOptions![index]"
             :widget="widgetsMap[option.widget]"
-            :show-key="showCommandCode"
+            :show-key="isShowCommandCode"
             class="option"
           />
         </template>
       </div>
     </el-main>
 
-    <my-command-code v-if="showCommandCode" :command="curCommand" class="command-code" />
+    <my-command-code
+      v-if="executable && isShowCommandCode"
+      :command="curCommand"
+      class="command-code"
+    />
 
-    <Log v-model="showXtermDialog" />
+    <my-logger v-if="executable" ref="logger" v-model="isShowLogger" />
 
-    <el-footer class="footer">
+    <el-footer v-if="executable" class="footer">
       <div class="footer-left">
-        <el-tooltip :content="$t('item.command')" placement="top" effect="light" :offset="0">
-          <el-link
-            underline="never"
-            :class="{ active: showCommandCode }"
-            @click="toggleCommandCode"
-          >
-            <i class="iconfont icon-cmd"></i>
-          </el-link>
-        </el-tooltip>
-
+        <my-toggler v-model="isShowCommandCode" @click="toggleCommandCode">
+          {{ $t('item.command') }}
+        </my-toggler>
         <!-- <el-divider direction="vertical" /> -->
-
-        <el-tooltip :content="$t('item.log')" placement="top" effect="light" :offset="0">
-          <el-link
-            underline="never"
-            :class="{ active: showXtermDialog }"
-            @click="showXtermDialog = !showXtermDialog"
-          >
-            <i class="iconfont icon-terminal"></i>
-          </el-link>
-        </el-tooltip>
+        <my-toggler v-model="isShowLogger" @click="showLogger(!isShowLogger)">
+          {{ $t('item.log') }}
+        </my-toggler>
       </div>
 
       <div class="footer-right">
@@ -246,22 +260,6 @@ function toggleCommandCode(): void {
   .footer-left {
     flex: auto;
     flex-shrink: 0;
-
-    .el-link {
-      padding: 4px;
-
-      i {
-        font-size: 24px;
-      }
-
-      color: var(--el-color-info);
-      &:hover {
-        color: var(--el-text-color-regular);
-      }
-      &.active {
-        color: var(--el-color-warning);
-      }
-    }
   }
 
   .footer-right {

@@ -30,7 +30,10 @@ const emit = defineEmits<{
       <el-image class="icon" :src="base.icon || appIcon" fit="cover" />
       <div class="info">
         <div class="name">
-          <el-text>{{ base.name }}</el-text>
+          <el-text v-if="base.name">{{ base.name }}</el-text>
+          <el-text v-else type="info" style="font-style: italic">{{
+            base.command || $t('list.unnamed')
+          }}</el-text>
         </div>
         <div class="desc">
           <el-text size="small" type="info">{{ base.description }}</el-text>

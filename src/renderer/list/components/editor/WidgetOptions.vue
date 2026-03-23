@@ -43,37 +43,36 @@ function onFileFiltersEditorConfirm(filters: FileFilter[]): void {
 //               控件属性变更
 // ==========================================
 async function onOptionChange(option: WidgetOption): Promise<void> {
-  console.log(curOption.value)
   if (option.valueKey === 'command' || option.valueKey === 'realPath') {
     // 注意：value 是有可能为 undefined 的，不过当变更的是 valueKey 时，value 必然有值
     const value = curOption.value!.value as CommandBase
 
     // 命令变更，自动获取命令真实路径、命令名字、命令图标、生成窗口图标
-    if (option.valueKey === 'command' && value.command) {
-      const file = await window.api.getCommandInfo(value.command as string)
+    if (option.valueKey === 'command') {
+      const baseCommand =
+        value.command && (value.command.match(/^"(.*?)"/)?.[1] || value.command.split(' ')[0])
+      const file = baseCommand && (await window.api.getCommandInfo(baseCommand as string))
       if (file) {
         Object.assign(value, {
-          name: value.name || window.api.parsePath(file.realPath).name,
           icon: file.icon,
           realPath: file.realPath
         })
-      } else {
+      } else if (!value.realPath) {
         Object.assign(value, { icon: '', realPath: '' })
       }
     }
 
     // 路径变更，自动获取命令名字、命令图标、生成窗口图标
-    if (option.valueKey === 'realPath' && value.realPath) {
-      const file = await window.api.getFileInfo(value.realPath as string)
+    if (option.valueKey === 'realPath') {
+      const file = value.realPath && (await window.api.getFileInfo(value.realPath as string))
       if (file) {
         Object.assign(value, {
-          name: value.name || window.api.parsePath(file.realPath).name,
           icon: file.icon,
           command: '',
           realPath: file.realPath
         })
-      } else {
-        Object.assign(value, { command: '', icon: '', window: { icon: '' } })
+      } else if (!value.command) {
+        Object.assign(value, { icon: '', command: '' })
       }
     }
   }
@@ -104,6 +103,7 @@ async function onOptionChange(option: WidgetOption): Promise<void> {
         attrs: curOption.attrs,
         options: curOption.options
       }"
+      :edit-mode="true"
       @show-setting="showOptionSetting(curOption)"
     />
 

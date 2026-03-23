@@ -12,16 +12,16 @@ import Editor from './components/editor/Editor.vue'
 import '@utils/defaultCommandItems'
 import { importCommands } from '@utils/commandUtil'
 import useI18n from '@store/useI18n'
+import useListStore from '@store/useListStore'
 
 const { t } = useI18n()
 const { getItem } = useData()
+const { isDragging } = useListStore()
 
 function openCommandWindow(command: Command): void {
   const clone = cloneDeep(toRaw(command))
-  const input = clone.options.find((option) => option.widget === 'input')
-  const hasInput = input && !input.hidden
-  clone.window.width ||= hasInput ? 800 : 400
-  clone.window.height ||= hasInput ? 600 : 400
+  clone.window.width ||= 800
+  clone.window.height ||= 600
   window.api.openCommandWindow(clone)
 }
 
@@ -80,7 +80,10 @@ function onDrop(files: FileExtra[]): void {
 
   // 如果是数据文件
   const jsonFiles = filePaths.filter((file) => /\.json/i.test(file))
-  importCommands(jsonFiles)
+  if (jsonFiles.length > 0) {
+    importCommands(jsonFiles)
+    return
+  }
 
   // 如果是可执行文件
   const [executableFile] = filePaths.filter((file) => window.api.isExecutable(file))
@@ -92,7 +95,7 @@ function onDrop(files: FileExtra[]): void {
 
 <template>
   <el-container>
-    <my-drop-files @drop="onDrop" />
+    <my-drop-files :disabled="isDragging" @drop="onDrop" />
 
     <el-header class="my-container-header">
       <Header @open-editor="openEditor" />

@@ -6,7 +6,7 @@ import which from 'which'
 import { AppInfo, Cli2GuiData, Command, FileInfo, PathName } from '@shared/typings'
 import { APP_NAME } from '@shared/constants'
 import IPC from './ipc'
-import { execCommand, stopCommand } from './execCommand'
+import { runCommand, execCommand, stopCommand } from './execCommand'
 import {
   createDesktopShortcut,
   removeDesktopShortcuts,
@@ -111,16 +111,29 @@ const api = {
    * @param path 文件路径
    * @returns 是否是可执行文件
    */
-  isExecutable: (path: string): boolean => {
-    // 如果是 Windows 快捷方式，获取目标文件路径
-    if (/.lnk$/i.test(path)) {
-      path = shell.readShortcutLink(path).target
-    }
+  isExecutable(path: string): boolean {
     if (!fs.existsSync(path)) return false
+
+    // 如果是 Windows 快捷方式，获取目标文件路径
+    if (this.isFile(path) && /.lnk$/i.test(path)) {
+      if (process.platform === 'win32') {
+        path = shell.readShortcutLink(path).target
+        if (!fs.existsSync(path)) return false
+      } else {
+        return false
+      }
+    }
+
+    // 如果是目录，判断是否为 macOS 的 .app 包
+    if (this.isDirectory(path)) {
+      return process.platform === 'darwin' && /\.app$/i.test(path)
+    }
+
     // 如果是 Windows 系统，判断扩展名是否为可执行文件
     if (process.platform === 'win32') {
-      return /\.(exe|bat|cmd|vbs|ps1)$/i.test(path)
+      return this.isFile(path) && /\.(exe|bat|cmd|vbs|ps1)$/i.test(path)
     }
+
     // 其他 Posix 系统，检查是否具有执行权限
     try {
       fs.accessSync(path, fs.constants.X_OK)
@@ -139,6 +152,7 @@ const api = {
     IPC.post('openCommandWindow', command)
   },
 
+  runCommand,
   execCommand,
   stopCommand,
 
@@ -173,7 +187,11 @@ const api = {
   async getFileInfo(filePath: string): Promise<FileInfo | null> {
     // 如果是 Windows 快捷方式，获取目标文件路径
     if (/.lnk$/i.test(filePath)) {
-      filePath = shell.readShortcutLink(filePath).target
+      if (process.platform === 'win32') {
+        filePath = shell.readShortcutLink(filePath).target
+      } else {
+        return null
+      }
     }
     if (!fs.existsSync(filePath)) return null
     // 调用主进程获取文件图标
